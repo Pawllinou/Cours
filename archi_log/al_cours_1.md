@@ -5,7 +5,7 @@ contenu:
 -IHM
 -Graphs
 
-site web: www.labri.fr/~auber/ALM1GL
+[site web](http://www.labri.fr/~auber/ALM1GL)
 
 le language et le code importe peu au début, il faut juste que ça fonctionne.
 

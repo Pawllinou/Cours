@@ -1,0 +1,11 @@
+with CircuitV1_OK do
+ bug := any_s & [L.on & ~L.ok];
+ action := any_t & (label S.push | label G.failure | label G.repair);
+ reaction := any_t & ((label L.reaction | epsilon) - self_epsilon);
+ CFC_reaction := rsrc(reach(any_s & tgt(reaction),reaction) &
+                       coreach(any_s & src(reaction),reaction)) &
+	         rtgt(reach(any_s & tgt(reaction),reaction) &
+                       coreach(any_s & src(reaction),reaction)) &
+	         reaction;
+ tr_CFC_reaction := trace(initial,any_t,src(CFC_reaction)&tgt(CFC_reaction));
+done

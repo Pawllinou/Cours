@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+
+\title{Rendu sur l'affichage des grands graphes}
+\author{Luigi Zaghet, Samuel Daugès, Paul Bourseau}
+\bibliographystyle{alpha}
+
+\begin{document}
+
+\maketitle
+
+Un graphe G = (V, E) est un outil de modélisation qui comprend un ensemble de nœuds
+V ainsi qu’un ensemble d’arêtes E. Une arête est un lien entre deux nœuds. Les graphes ont
+comme vocation d’être utilisés en tant que structures de données permettant de modéliser des
+objets ou des problèmes avec de nombreuses applications, notamment dans les domaines des
+réseaux sociaux, des réseaux informatiques ou encore de la génétique. Parmi ces applications se
+trouve la recherche de structures, par exemple, dans le cadre de la génétique on peut rechercher
+des interactions protéines-protéines (Przulj (2003)), on peut également vouloir chercher des
+communautés dans les graphes issus des réseaux sociaux, etc.
+Pour afficher un graphe, nous pouvons utiliser des indices et un tableau par exemple, c'est la façon la plus naturelle, et la plus triviale. Le seul inconvénient de cette méthode est de devoir disposer de l'intégralité du graphe dans la mémoire. Problématique si vos ressources en mémoire sont limitées, ou si pire, le graphe est de taille infinie.\\
+Deuxième méthode, des hash et une tableau de hashage: il s'agit de la version adaptée de l'implémentation précédente, pour palier à son principal défaut. Tout les nœuds que vous connaissez déjà sont stockés dans une table de hachage, et la liste d'adjacence de chaque nœud contient le hash de ses voisins. C'est généralement l'implémentation idéale pour un graphe dans lequel les arêtes entre chaque nœud sont définies par des règles précises, et non pas de manière purement arbitraire. Prenons l'exemple du jeu d'échecs : en associant à un nœud à chaque position, on constate que les arêtes correspondent à chaque coup légal qui mène à une position légale elle aussi (le milieu des jeux de stratégie semble très policé). Ainsi, pour chaque nœud, on peut facilement lister ses voisins. Il n'est pas possible de stocker autant de nœuds que de configurations du plateau : il en existe de l'ordre de 10^{50}.
+
+Mais ce n'est pas un problème : jouer une partie revient à se promener dans ce graphe (c'est d'ailleurs un arbre), et il n'est en rien nécessaire d'énumérer tout les nœuds pour cela.
+
+Le principal défaut de cette implémentation est le calcul des hashs : cela se fait en O(1)
+en temps mais avec un facteur constant très important. \\
+Sinon des pointeurs?
+Cette implémentation est à réserver aux langages qui supportent ce concept (langages bas-niveaux essentiellement).
+
+La liste d'adjacence contient des pointeurs vers chaque nœud voisin. Chaque nœud est alloué dynamiquement. Cela permet une représentation très souple du graphe : ajout et suppression de nœuds, et d'arêtes. Pour reprendre un précédent exemple : sur des réseaux sociaux des comptes peuvent être supprimés ou ajoutés, et on peut "aimer" ou "ne plus aimer" certaines choses, etc…
+
+Cependant, la construction du graphe et son exploitation n'est pas facile : cette implémentation sujette aux bugs est à réserver aux cas dans lesquels elle est absolument nécessaire. 
+
+\begin{thebibliography}{9}
+\bibitem{texbook}
+Jocelyn Bernard. Gérer et analyser les grands graphes des entités nommées. Algorithme et structure
+de données. Université de Lyon, 2019.
+
+\bibitem{lamport94}
+L'utilisateur Algue-Rythme sur le forum graphes et représentation de graphes de zestedesavoir.com (2016)
+\url{https://zestedesavoir.com/tutoriels/681/a-la-decouverte-des-algorithmes-de-graphe/727_bases-de-la-theorie-des-graphes/3352_graphes-et-representation-de-graphe/}
+
+\end{thebibliography}
+\end{document}

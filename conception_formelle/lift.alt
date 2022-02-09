@@ -1,0 +1,60 @@
+const nbFloors = 4;
+
+node Door
+    state openned : bool : public;
+    init openned:=false;
+    event open, close;
+    trans
+        true |- open -> openned := true;
+        true |- close -> openned := false;
+edon
+
+node Button
+    state on: bool : public;
+    init on:= false;
+    event push, satisfy;
+    trans
+        true |- push -> on:=true;
+        true |- satisfy -> on:=false;
+edon
+
+node Floor
+    sub B : Button;
+        D : Door;
+    state request : bool;
+    init  request := false;
+    event open, close;
+    trans
+        ~D.openned |- open ->;
+        D.openned |- close ->;
+    sync 
+        <close, B.satisfy, D.close>;
+        <open, D.open>;
+edon
+
+node Lift
+    sub B : Button[nbFloors];
+        D : Door;
+    state level : [0, nbFloors-1] : public;
+    init  level := 0;
+    event up, down, open, close[nbFloors];
+    trans
+        ~D.openned |- up -> level := level + 1;
+        ~D.openned |- down -> level := level - 1;
+        D.openned & level=0 |- close[0] ->;
+        D.openned & level=1 |- close[1] ->;
+        D.openned & level=2 |- close[2] ->;
+        D.openned & level=3 |- close[3] ->;
+        ~D.openned |- open ->;
+    sync
+        <close[0], D.close, B[0].satisfy>;
+        <close[1], D.close, B[1].satisfy>;
+        <close[2], D.close, B[2].satisfy>;
+        <close[3], D.close, B[3].satisfy>;
+        <open, D.open>;
+edon
+
+node Building
+    sub F : Floor[nbFloors];
+        L : Lift;
+edon
