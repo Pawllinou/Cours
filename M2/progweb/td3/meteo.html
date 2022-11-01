@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Application météo</title>
+    <script src="weather.js" defer></script>
+</head>
+<body>
+    <div id="container">
+        <h1>Bienvenue sur mon site météo</h1>
+        <div id="menu">
+            <input id="cityInput" type="text">
+            <button id="showBtn" type="button">afficher</button>
+        </div>
+        <div id="data">
+            <ul>
+                <li id="cityName"></li>
+                <li id="temperature"></li>
+                <li id="soleil"></li>
+                <li id="condition"></li>
+                <li id="next1"></li>
+                <li id="next2"></li>
+                <li id="next3"></li>
+
+            </ul>
+        </div>
+    </div>
+    
+</body>
+<footer>
+    <div id="copyrights">
+        source: www.prevision-meteo.ch
+    </div>
+</footer>
+</html>

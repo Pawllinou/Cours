@@ -1,0 +1,82 @@
+with Building do
+    dead := any_s -src(any_t - self_epsilon);
+    notResettable := any_s - coreach(initial, any_t);
+    /*
+    * SAFETY PROPERTIES P
+    * Ecrire P : si "A" alors "B"
+    * Calcul au choix de :
+    * notP := A & notB
+    * notP := A - B
+    * notP := notB - notA
+    */
+    /*
+    * P1 : "When a button is push, it lights"
+    * P1 : si "on appuie sur un bouton" alors "il s'allume"
+    */
+    //A := label F[0].B.push;
+    //B := [F[0].B.light];
+    notP1 := (tgt(label F[0].B.push) - [F[0].B.light])|
+             (tgt(label F[1].B.push) - [F[1].B.light])|
+             (tgt(label F[2].B.push) - [F[2].B.light])|
+             (tgt(label F[3].B.push) - [F[3].B.light])|
+             (tgt(label L.B[0].push) - [L.B[0].light])|
+             (tgt(label L.B[1].push) - [L.B[1].light])|
+             (tgt(label L.B[2].push) - [L.B[2].light])|
+             (tgt(label L.B[3].push) - [L.B[3].light]);
+    /*
+    * P2 : "When the corresponding service is done, it lights off."
+    * P2 : si "le service est rendu" alors "les boutons correspondants s'éteignent"
+    * P2 doit être restreint à la partie accessible.
+    */
+    notP2 := any_s &
+             ((tgt(label F[0].D.close) & [request[0]])|
+              (tgt(label F[1].D.close) & [request[1]])|
+              (tgt(label F[2].D.close) & [request[2]])|
+              (tgt(label F[3].D.close) & [request[3]]));
+    /*
+    * P3 : "At each floor, the door is close if the lift is not here."
+    * P3 : si "" alors ""
+    */
+    notP3 := any_s &
+             (([L.level != 0] - [not F[0].D.isOpen])|
+              ([L.level != 1] - [not F[1].D.isOpen])|
+              ([L.level != 2] - [not F[2].D.isOpen])|
+              ([L.level != 3] - [not F[3].D.isOpen]));
+
+    /*
+    * P5 : "The software opens the door at some floor only if there is some requests for that floor."
+    * P5 : si "The software opens the door at floor i" alors "there is some requests for floor i"
+    */
+    notP5 := (src(label open[0]) /*<=> F[0].D.open*/ - [request[0]])|
+             (src(label open[1]) /*<=> F[1].D.open*/ - [request[1]])|
+             (src(label open[2]) /*<=> F[2].D.open*/ - [request[2]])|
+             (src(label open[3]) /*<=> F[3].D.open*/ - [request[3]]);
+    /*
+    * P6 : "If there is no request, the lift must stay at the same floor."
+    * P6 : si "there is no request" alors "the lift must stay at the same floor"
+    * P6 : si "the lift may move" alors "there is a request"
+    */
+    notP6 := any_s &
+             (src(label down | label up) - /*src = prendre la source de la transition*/
+              [request[0] | request[1] | request[2] | request[3]]);
+    /*
+    * P7 : "When the lift moves, it must stop where there is a request."
+    * P7 : si "the lift is at i and there is a request for i" alors "the lift must stop"
+    */
+    notP7 := any_s & 
+             (([L.level = 0 & request[0]] & src(label down | label up))|
+              ([L.level = 1 & request[1]] & src(label down | label up))|
+              ([L.level = 2 & request[2]] & src(label down | label up))|
+              ([L.level = 3 & request[3]] & src(label down | label up)));
+    /*
+    * P8 : "When there are several requests, the software must (if necessary) continue in the same direction than its last move"
+    * P8 : si "there are requests in both directions" alors "the software must continue in the same direction than its last move"
+    */
+    notP8 := any_s & 
+             ((reach (tgt (label up), any_t - (label up | label down)) & 
+              [requestDown & requestUp] & 
+              src (label down)) |
+              (reach (tgt (label down), any_t - (label up | label down)) & 
+              [requestDown & requestUp] & 
+              src (label up)));
+done
