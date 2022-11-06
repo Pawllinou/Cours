@@ -1,0 +1,162 @@
+*{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body {
+    background-color: #373e4a;
+    display: flex;
+    justify-content: center;
+    background-image: url(seasons.jpg);
+}
+
+footer{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+
+.button{
+    display: inline-block;
+    border-radius: 10px;
+    background-color: rgb(4, 99, 223);
+    border: 0px;
+    font-weight: bold;
+    font-size: medium;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+.button span:after {
+    content: '\00AB';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 18px;
+    transition: 0.5s;
+  }
+
+.button:hover span {
+    padding-left: 15px;
+  }
+  
+.button:hover span:after {
+    opacity: 1;
+    left: 0;
+  }
+
+#container {
+    width: 900px;
+    height: 850px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(.25turn, rgba(31, 82, 177, 0.7), rgba(14, 136, 55, .7));
+    border-radius: 25px;
+}
+
+#top_center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+#middle{
+    width: 900px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#left_middle{
+    flex-grow: 1;
+}
+
+#top_left_middle{
+    display: flex;
+    justify-content: space-around;
+    margin-right: 20px;
+}
+
+#days_hours{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#hours_4, #hours_8, #hours_12, #hours_16, #hours_20, #day_0, #day_1, #day_2, #day_3{
+    visibility: hidden;
+}
+
+#hours{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#hours_4, #hours_8, #hours_12, #hours_16, #hours_20{
+    margin-top: 10px;
+    position: relative;
+    float: right;
+    width: 70px;
+}
+
+#right_middle{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+#topCities{
+    margin-bottom: 20px;
+}
+
+.cities{
+    margin-bottom: 10%;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+}
+
+.cities_line{
+    border: 2px solid rgb(4, 99, 223);
+    width: 176px;
+    margin-bottom: 5px;
+}
+
+.city_info{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+
+#data{
+    height: 200px;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+}
+
+#map{
+    margin: 20px;
+    height: 400px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+a:visited{
+    color: black;
+}
+
+a:hover{
+    background-color: black;
+    color: white;
+}

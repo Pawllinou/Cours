@@ -6,33 +6,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Application météo</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+     integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+     crossorigin="" defer></script>
+    <link rel="stylesheet" href="meteo.css">
     <script src="weather.js" defer></script>
 </head>
 <body>
     <div id="container">
-        <h1>Bienvenue sur mon site météo</h1>
-        <div id="menu">
-            <input id="cityInput" type="text">
-            <button id="showBtn" type="button">afficher</button>
+        <div id="top_center">
+            <h1>Bienvenue sur mon site météo</h1>
+            <div id="menu">
+                <input id="cityInput" type="text">
+                <button id="showBtn" type="button" class="button">afficher</button>
+            </div>
         </div>
-        <div id="data">
-            <ul>
-                <li id="cityName"></li>
-                <li id="temperature"></li>
-                <li id="soleil"></li>
-                <li id="condition"></li>
-                <li id="next1"></li>
-                <li id="next2"></li>
-                <li id="next3"></li>
-
-            </ul>
+        <div id="middle">
+            <div id="left_middle">
+                <div id="top_left_middle">
+                    <div id="data">
+                        <ul id="data_list">
+                            <li id="cityName"></li>
+                            <li id="temperature"></li>
+                            <li id="sun"></li>
+                            <li id="wind"></li>
+                            <li id="pressure"></li>
+                            <li id="humidity"></li>
+                            <li id="next1"></li>
+                            <li id="next2"></li>
+                        </ul>
+                    </div>
+                    <div id="days_hours">
+                        <div id="days">
+                            <button id="day_0" type="button" class="button">J</button>
+                            <button id="day_1" type="button" class="button">J+1</button>
+                            <button id="day_2" type="button" class="button">J+2</button>
+                            <button id="day_3" type="button" class="button">J+3</button>
+                        </div>
+                        <div id="hours">
+                            <button id="hours_4" type="button" class="button">4H00</button>
+                            <button id="hours_8" type="button" class="button">8H00</button>
+                            <button id="hours_12" type="button" class="button">12H00</button>
+                            <button id="hours_16" type="button" class="button">16H00</button>
+                            <button id="hours_20" type="button" class="button">20H00</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="map"></div>
+            </div>
+            
+            <div id="right_middle">
+                <div id="top5" class="cities">
+                    <div id="topCities">Villes fréquentes:</div>
+                    <div id="city1" class="cities">
+                        <div id="city1_info" class="city_info">
+                            <span id="city1_name"></span>
+                            <button id="city1_moreinfo" type="button" class="button"><span>Plus d'info</span></button>
+                        </div>
+                        <div id="city1_condition">
+                            <span id="city1_temp"></span>
+                            <img src="" id="city1_icon" width="25px" height="25px"></img>
+                            <br><span id="city1_wind"></span>
+                        </div>
+                    </div>
+                    <div id="city2" class="cities">
+                        <div class="cities_line"></div>
+                        <div id="city2_info" class="city_info">
+                            <span id="city2_name"></span>
+                            <button id="city2_moreinfo" type="button" class="button"><span>Plus d'info</span></button>
+                        </div>
+                        <div id="city2_condition">
+                            <span id="city2_temp"></span>
+                            <img src="" id="city2_icon" width="25px" height="25px"></img>
+                            <br><span id="city2_wind"></span>
+                        </div>
+                    </div>
+                    <div id="city3" class="cities">
+                        <div class="cities_line"></div>
+                        <div id="city3_info" class="city_info">
+                            <span id="city3_name"></span>
+                            <button id="city3_moreinfo" type="button" class="button"><span>Plus d'info</span></button>
+                        </div>
+                        <div id="city3_condition">
+                            <span id="city3_temp"></span>
+                            <img src="" id="city3_icon" width="25px" height="25px"></img>
+                            <br><span id="city3_wind"></span>
+                        </div>
+                    </div>
+                    <div id="city4" class="cities">
+                        <div class="cities_line"></div>
+                        <div id="city4_info" class="city_info">
+                            <span id="city4_name"></span>
+                            <button id="city4_moreinfo" type="button" class="button"><span>Plus d'info</span></button>
+                        </div>
+                        <div id="city4_condition">
+                            <span id="city4_temp"></span>
+                            <img src="" id="city4_icon" width="25px" height="25px"></img>
+                            <br><span id="city4_wind"></span>
+                        </div>
+                    </div>
+                    <div id="city5" class="cities">
+                        <div class="cities_line"></div>
+                        <div id="city5_info" class="city_info">
+                            <span id="city5_name"></span>
+                            <button id="city5_moreinfo" type="button" class="button"><span>Plus d'info</span></button>
+                        </div>
+                        <div id="city5_condition">
+                            <span id="city5_temp"></span>
+                            <img src="" id="city5_icon" width="25px" height="25px"></img>
+                            <br><span id="city5_wind"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
 </body>
 <footer>
     <div id="copyrights">
-        source: www.prevision-meteo.ch
+        sources: <a href="https://www.prevision-meteo.ch" target="_blank">prevision-meteo.ch</a> / <a href="https://www.reveillere.fr" target="_blank">Reveillere</a>
     </div>
 </footer>
 </html>
